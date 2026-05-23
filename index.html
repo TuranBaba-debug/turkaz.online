@@ -70,10 +70,42 @@ ul { list-style: none; }
   width: 80px;
   height: 4px;
   background: linear-gradient(90deg, var(--primary), var(--secondary));
-  margin: 0 auto 15px;
+  margin: 0 auto 20px;
   border-radius: 2px;
-  box-shadow: 0 0 15px rgba(255,193,7,0.2);
+  box-shadow: 0 0 20px rgba(255,193,7,0.15);
+  position: relative;
 }
+.section-divider::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 2px; height: 8px;
+  background: var(--primary);
+  border-radius: 1px;
+  opacity: 0.3;
+}
+.section-divider::after {
+  content: '';
+  position: absolute;
+  bottom: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 2px; height: 8px;
+  background: var(--secondary);
+  border-radius: 1px;
+  opacity: 0.3;
+}
+.section + .section { margin-top: 0; }
+.section::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,193,7,0.08), rgba(0,149,255,0.08), transparent);
+  pointer-events: none;
+}
+.section-divider.fade-up.visible { opacity: 1; transform: translateY(0); }
 /* ===== PARTICLES ===== */
 #particles-canvas {
   position: fixed;
@@ -249,13 +281,32 @@ ul { list-style: none; }
 .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: var(--dark); box-shadow: 0 4px 25px var(--glow-yellow); border: 1px solid rgba(255,193,7,0.3); position: relative; overflow: hidden; }
 .btn-primary::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%); opacity: 0; transition: var(--transition); }
 .btn-primary:hover::before { opacity: 1; }
-.btn-primary:hover { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 35px var(--glow-yellow); }
-.btn-secondary { background: transparent; color: var(--white); border: 2px solid var(--secondary); box-shadow: 0 0 15px rgba(0,149,255,0.1); backdrop-filter: blur(4px); }
-.btn-secondary:hover { background: var(--secondary); color: var(--dark); transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 35px var(--glow-blue); }
-.btn-accent { background: linear-gradient(135deg, var(--accent), #0088AA); color: var(--white); border: 1px solid rgba(0,188,212,0.3); box-shadow: 0 4px 20px rgba(0,188,212,0.2); }
-.btn-accent:hover { background: linear-gradient(135deg, #0088AA, var(--accent)); transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 30px rgba(0,188,212,0.4); }
-.btn-green { background: #25D366; color: var(--white); }
-.btn-green:hover { background: #1DA851; transform: translateY(-3px); }
+.btn-primary:hover { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); transform: translateY(-4px) scale(1.03); box-shadow: 0 8px 35px var(--glow-yellow); }
+.btn-primary:active { transform: translateY(-1px) scale(0.98); }
+.btn-secondary { background: transparent; color: var(--white); border: 2px solid var(--secondary); box-shadow: 0 0 15px rgba(0,149,255,0.1); backdrop-filter: blur(4px); transition: var(--transition); }
+.btn-secondary:hover { background: var(--secondary); color: var(--dark); transform: translateY(-4px) scale(1.03); box-shadow: 0 8px 35px var(--glow-blue); }
+.btn-secondary:active { transform: translateY(-1px) scale(0.98); }
+.btn-accent { background: linear-gradient(135deg, var(--accent), #0088AA); color: var(--white); border: 1px solid rgba(0,188,212,0.3); box-shadow: 0 4px 20px rgba(0,188,212,0.2); position: relative; overflow: hidden; transition: var(--transition); }
+.btn-accent::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%); opacity: 0; transition: var(--transition); }
+.btn-accent:hover::before { opacity: 1; }
+.btn-accent:hover { background: linear-gradient(135deg, #0088AA, var(--accent)); transform: translateY(-4px) scale(1.03); box-shadow: 0 8px 30px rgba(0,188,212,0.4); }
+.btn-accent:active { transform: translateY(-1px) scale(0.98); }
+.btn-green { background: #25D366; color: var(--white); transition: var(--transition); }
+.btn-green:hover { background: #1DA851; transform: translateY(-3px) scale(1.02); box-shadow: 0 6px 20px rgba(37,211,102,0.3); }
+.btn-green:active { transform: translateY(-1px) scale(0.98); }
+/* ===== GLOBAL SHINE ON BTN HOVER ===== */
+.btn { position: relative; overflow: hidden; }
+.btn::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.btn:hover::after { opacity: 1; }
 .btn-sm { padding: 10px 24px; font-size: 14px; }
 /* ===== SCROLL ANIMATION ===== */
 .fade-up { opacity: 0; transform: translateY(40px); transition: all 0.7s cubic-bezier(0.4,0,0.2,1); }
@@ -775,6 +826,8 @@ ul { list-style: none; }
 .contact-item a:hover { color: var(--primary); }
 .contact-whatsapp { margin-top: 10px; }
 .contact-whatsapp .btn { width: 100%; justify-content: center; font-size: 18px; padding: 20px; }
+.contact-map { margin-top: 8px; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); transition: var(--transition); }
+.contact-map:hover { border-color: rgba(255,193,7,0.15); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
 .contact-form-card {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.06);
@@ -800,9 +853,17 @@ ul { list-style: none; }
 .form-group textarea { min-height: 120px; resize: vertical; }
 /* ===== FOOTER ===== */
 .footer {
-  background: #0a0a0a;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  background: #060606;
+  border-top: 1px solid rgba(255,255,255,0.04);
   padding: 60px 0 30px;
+  position: relative;
+}
+.footer-top-bar {
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  margin-bottom: 40px;
+  border-radius: 2px;
+  opacity: 0.6;
 }
 .footer-grid {
   display: grid;
@@ -818,9 +879,27 @@ ul { list-style: none; }
   .footer-grid { grid-template-columns: 1fr; }
   .footer-grid > :first-child { grid-column: span 1; }
 }
-.footer-col h4 { font-size: 16px; font-weight: 700; margin-bottom: 15px; }
-.footer-col p, .footer-col a { font-size: 13px; color: var(--gray); line-height: 2; display: block; }
-.footer-col a:hover { color: var(--primary); }
+.footer-col h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  position: relative;
+  padding-bottom: 10px;
+}
+.footer-col h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 30px;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 1px;
+}
+.footer-col p, .footer-col a { font-size: 13px; color: var(--gray); line-height: 2; display: block; transition: var(--transition); }
+.footer-col a:hover { color: var(--primary); transform: translateX(4px); }
+.footer-contact-item { display: block; font-size: 13px; color: var(--gray); line-height: 2; }
+.footer-contact-item a { display: inline; color: var(--gray); }
+.footer-contact-item a:hover { color: var(--primary); }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.05);
   padding-top: 25px;
@@ -835,28 +914,32 @@ ul { list-style: none; }
 .footer-socials a {
   width: 38px; height: 38px;
   border-radius: 10px;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.04);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   transition: var(--transition);
+  border: 1px solid rgba(255,255,255,0.06);
 }
-.footer-socials a:hover { background: var(--primary); transform: translateY(-3px); }
+.footer-socials a:hover { background: var(--primary); border-color: var(--primary); transform: translateY(-4px); box-shadow: 0 6px 20px rgba(255,193,7,0.15); }
 .footer-brands {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 10px;
+  gap: 10px;
+  margin-top: 12px;
 }
 .footer-brands span {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   padding: 4px 12px;
   background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
   border-radius: 6px;
   color: var(--gray);
+  transition: var(--transition);
 }
+.footer-brands span:hover { border-color: var(--primary); color: var(--primary); background: rgba(255,193,7,0.04); }
 /* ===== BəLBəL SECTION ===== */
 .bulbul-hero {
   background: linear-gradient(135deg, #0d0d0d, #001a05);
@@ -1429,7 +1512,7 @@ body { transition: background 0.4s ease, color 0.4s ease; }
       <span class="line line-light" data-i18n="hero_line2">Heç Vaxt Bitməz</span>
     </h1>
     <p class="hero-sub" data-i18n="hero_sub">Turkaz Enerji MMC — Yiğit Akü — Bülbül Battery — Perge — Klas — Yuras</p>
-    <div class="hero-buttons">
+    <div class="hero-buttons" data-aos="fade-up" data-aos-delay="400">
       <a href="#products" class="btn btn-primary" data-i18n="hero_btn1">Məhsullara Bax</a>
       <a href="#contact" class="btn btn-secondary" data-i18n="hero_btn2">Əlaqə</a>
       <a href="#quiz" class="btn btn-accent" data-i18n="hero_btn3">Testdən Keç</a>
@@ -1748,65 +1831,75 @@ body { transition: background 0.4s ease, color 0.4s ease; }
 </div>
 
 <!-- CONTACT -->
-<section class="section section-dark" id="contact">
-  <div class="container">
-    <div class="section-divider fade-up"></div>
-    <h2 class="section-title fade-up" data-i18n="contact_title"><span class="accent">Əlaqə</span></h2>
-    <div class="contact-grid" style="margin-top:50px;">
-      <div class="contact-info fade-left">
-        <div class="contact-item">
-          <div class="ci-icon">⚡</div>
-          <div><h4 data-i18n="contact_name_label">Ad</h4><p>Turan Babasoy</p></div>
-        </div>
-        <div class="contact-item">
-          <div class="ci-icon">—</div>
-          <div><h4 data-i18n="contact_phone_label">Telefon</h4><a href="tel:+994517290386">+994 51 729 03 86</a></div>
-        </div>
-        <div class="contact-item">
-          <div class="ci-icon">ə️</div>
-          <div><h4 data-i18n="contact_email_label">E-mail</h4><a href="mailto:Turanbaba@turkaz.online">Turanbaba@turkaz.online</a></div>
-        </div>
-        <div class="contact-item">
-          <div class="ci-icon">⚡</div>
-          <div><h4 data-i18n="contact_web_label">Veb-sayt</h4><a href="https://turkaz.online" target="_blank">turkaz.online</a></div>
-        </div>
-        <div class="contact-item">
-          <div class="ci-icon">⚡</div>
-          <div><h4 data-i18n="contact_hours_label">İş saatları</h4><p data-i18n="contact_hours">Həftəiçi 09:00-18:00</p></div>
-        </div>
-        <div class="contact-whatsapp">
-          <a href="https://wa.me/994503791806" target="_blank" class="btn btn-green" data-i18n="contact_whatsapp">
-            ⚡ WhatsApp ilə yazın
-          </a>
-        </div>
-      </div>
-      <div class="contact-form-card fade-right">
-        <h3 data-i18n="form_title">Bizimlə əlaqə</h3>
-        <form id="contactForm">
-          <div class="form-group">
-            <label data-i18n="form_name">Adınız</label>
-            <input type="text" id="formName" required>
+  <section class="section section-dark" id="contact">
+    <div class="container">
+      <div class="section-divider fade-up"></div>
+      <h2 class="section-title fade-up" data-i18n="contact_title"><span class="accent">Əlaqə</span></h2>
+      <div class="contact-grid" style="margin-top:50px;">
+        <div class="contact-info fade-left">
+          <div class="contact-item">
+            <div class="ci-icon">⚡</div>
+            <div><h4 data-i18n="contact_name_label">Ad</h4><p>Turan Babasoy</p></div>
           </div>
-          <div class="form-group">
-            <label data-i18n="form_phone">Telefon</label>
-            <input type="tel" id="formPhone" required>
+          <div class="contact-item">
+            <div class="ci-icon">—</div>
+            <div><h4 data-i18n="contact_phone_label">Telefon</h4><a href="tel:+994517290386">+994 51 729 03 86</a></div>
           </div>
-          <div class="form-group">
-            <label data-i18n="form_message">Mesajınız</label>
-            <textarea id="formMessage" required></textarea>
+          <div class="contact-item">
+            <div class="ci-icon">ə️</div>
+            <div><h4 data-i18n="contact_email_label">E-mail</h4><a href="mailto:Turanbaba@turkaz.online">Turanbaba@turkaz.online</a></div>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" data-i18n="form_send">Göndər</button>
-        </form>
+          <div class="contact-item">
+            <div class="ci-icon">⚡</div>
+            <div><h4 data-i18n="contact_web_label">Veb-sayt</h4><a href="https://turkaz.online" target="_blank">turkaz.online</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">⚡</div>
+            <div><h4 data-i18n="contact_hours_label">İş saatları</h4><p data-i18n="contact_hours">Həftəiçi 09:00-18:00</p></div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">⚡</div>
+            <div><h4 data-i18n="contact_address_label">Ünvan</h4><p data-i18n="contact_address">Sumqayıt, Bakı küçəsi, Azərbaycan</p></div>
+          </div>
+          <div class="contact-whatsapp">
+            <a href="https://wa.me/994503791806" target="_blank" class="btn btn-green" data-i18n="contact_whatsapp">
+              ⚡ WhatsApp ilə yazın
+            </a>
+          </div>
+          <div class="contact-map">
+            <div style="border-radius:16px;overflow:hidden;margin-top:8px;">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.5!2d49.6681!3d40.5855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDM1JzA4LjAiTiA0OcKwNDAnMDUuMiJF!5e0!3m2!1saz!2saz!4v1" width="100%" height="240" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form-card fade-right">
+          <h3 data-i18n="form_title">Bizimlə əlaqə</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <label data-i18n="form_name">Adınız</label>
+              <input type="text" id="formName" required>
+            </div>
+            <div class="form-group">
+              <label data-i18n="form_phone">Telefon</label>
+              <input type="tel" id="formPhone" required>
+            </div>
+            <div class="form-group">
+              <label data-i18n="form_message">Mesajınız</label>
+              <textarea id="formMessage" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" data-i18n="form_send">Göndər</button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 <!-- FOOTER -->
 <footer class="footer">
   <div class="container">
+    <div class="footer-top-bar"></div>
     <div class="footer-grid">
-      <div class="footer-col">
+      <div class="footer-col footer-brand-col">
         <div class="logo" style="margin-bottom:15px;">
           <span class="logo-bar"></span>
           <span class="logo-text">
@@ -1814,7 +1907,7 @@ body { transition: background 0.4s ease, color 0.4s ease; }
             <span class="logo-sub" data-i18n="logo_sub">MMC</span>
           </span>
         </div>
-        <p data-i18n="footer_slogan">Premium Akkumulyator Həlləri Azərbaycanın ən böyük akkumulyator mağazası</p>
+        <p data-i18n="footer_slogan">Premium Akkumulyator Həlləri — Azərbaycanın ən böyük akkumulyator mağazası</p>
         <div class="footer-brands">
           <span>Yiğit Akü</span>
           <span>Bülbül Battery</span>
@@ -1823,7 +1916,7 @@ body { transition: background 0.4s ease, color 0.4s ease; }
           <span>Yuras Akü</span>
         </div>
         <div class="newsletter-card">
-          <h4 data-i18n="newsletter_title">⚡ Yeniliklərdən Xəbərdar Olun</h4>
+          <h4 data-i18n="newsletter_title">Yeniliklərdən Xəbərdar Olun</h4>
           <p data-i18n="newsletter_sub">Yeni məhsullar və kampaniyalar haqqında ilk siz öyrənin</p>
           <div class="newsletter-form">
             <input type="email" id="newsletterEmail" placeholder="E-poçtunuz" data-i18n-placeholder="newsletter_placeholder">
@@ -1842,10 +1935,11 @@ body { transition: background 0.4s ease, color 0.4s ease; }
         <a href="#contact" data-i18n="nav_contact">Əlaqə</a>
       </div>
       <div class="footer-col">
-        <h4 data-i18n="footer_contact">Əlaqə/h4>
-        <a href="tel:+994517290386">+994 51 729 03 86</a>
-        <a href="mailto:Turanbaba@turkaz.online">Turanbaba@turkaz.online</a>
-        <a href="https://turkaz.online" target="_blank">turkaz.online</a>
+        <h4 data-i18n="footer_contact">Əlaqə</h4>
+        <span class="footer-contact-item">📞 <a href="tel:+994517290386">+994 51 729 03 86</a></span>
+        <span class="footer-contact-item">✉️ <a href="mailto:Turanbaba@turkaz.online">Turanbaba@turkaz.online</a></span>
+        <span class="footer-contact-item">🌐 <a href="https://turkaz.online" target="_blank">turkaz.online</a></span>
+        <span class="footer-contact-item">📍 <span data-i18n="contact_address">Sumqayıt, Bakı küçəsi</span></span>
       </div>
       <div class="footer-col">
         <h4 data-i18n="footer_brands">Brendlər</h4>
@@ -1858,17 +1952,15 @@ body { transition: background 0.4s ease, color 0.4s ease; }
     </div>
     <div class="footer-bottom">
       <p data-i18n="footer_copy">© 2025 Turkaz Enerji MMC. Bütün hüquqlar qorunur.</p>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
-        <div class="footer-battery-anim">
-          <span class="fb-bar"></span><span class="fb-bar"></span><span class="fb-bar"></span>
-          <span class="fb-bar"></span><span class="fb-bar"></span>
-          <span class="footer-battery-text">— NERGY</span>
-        </div>
+      <div class="footer-battery-anim">
+        <span class="fb-bar"></span><span class="fb-bar"></span><span class="fb-bar"></span>
+        <span class="fb-bar"></span><span class="fb-bar"></span>
+        <span class="footer-battery-text">ENERGY</span>
       </div>
       <div class="footer-socials">
         <a href="https://wa.me/994503791806" target="_blank" title="WhatsApp">⚡</a>
-        <a href="mailto:Turanbaba@turkaz.online" title="Email">ə️</a>
-        <a href="https://turkaz.online" target="_blank" title="Website">⚡</a>
+        <a href="mailto:Turanbaba@turkaz.online" title="Email">✉️</a>
+        <a href="https://turkaz.online" target="_blank" title="Website">🌐</a>
       </div>
     </div>
   </div>
@@ -3097,28 +3189,6 @@ if (heroBattery) {
   document.querySelector('.hero')?.addEventListener('mouseleave', () => {
     heroBattery.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg)';
   });
-}
-
-// ===== QUIZ TRIGGER =====
-// Add a quiz trigger button to the hero area
-const heroBtns = document.querySelector('.hero-buttons');
-if (heroBtns) {
-  const quizBtn = document.createElement('a');
-  quizBtn.href = '#';
-  quizBtn.className = 'btn btn-accent';
-  quizBtn.textContent = '— Testdən Keç';
-  quizBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    quizStep = 0; quizAnswers = [];
-    document.getElementById('quizQuestionArea').style.display = '';
-    document.getElementById('quizResult').classList.remove('show');
-    document.getElementById('quizPrev').style.display = '';
-    document.getElementById('quizNext').style.display = '';
-    document.getElementById('quizNext').textContent = i18n[currentLang]?.quiz_next || 'İrəli';
-    renderQuiz();
-    document.getElementById('quiz').classList.add('open');
-  });
-  heroBtns.appendChild(quizBtn);
 }
 
 // ===== SETTINGS (Gemini API) =====
