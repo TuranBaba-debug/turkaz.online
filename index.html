@@ -1190,26 +1190,8 @@ body { transition: background 0.4s ease, color 0.4s ease; }
   .parallax-layer, .magnetic-card, .particle-float, .cursor-target { transition: none; }
 }
 /* ===== PART 1: SETTINGS + AI IMAGES ===== */
-.settings-btn { position: fixed; top: 80px; right: 20px; z-index: 998; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: var(--gray-light); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); backdrop-filter: blur(8px); }
-.settings-btn:hover { background: rgba(255,193,7,0.12); border-color: var(--primary); color: var(--white); }
-.settings-modal { position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; padding: 20px; }
-.settings-modal.open { display: flex; }
-.settings-panel { background: var(--dark2); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-lg); max-width: 460px; width: 100%; padding: 35px; position: relative; }
-.settings-panel h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
-.settings-panel > p { font-size: 13px; color: var(--gray); margin-bottom: 20px; line-height: 1.5; }
-.settings-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--gray); font-size: 22px; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
-.settings-close:hover { background: rgba(255,255,255,0.06); color: var(--white); }
-.settings-field { margin-bottom: 16px; }
-.settings-field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--gray-light); }
-.settings-field input { width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: var(--white); font-size: 14px; font-family: var(--font); outline: none; transition: var(--transition); }
-.settings-field input:focus { border-color: var(--primary); background: rgba(255,193,7,0.04); }
-.settings-field .hint { font-size: 11px; color: var(--gray); margin-top: 4px; }
-.settings-actions { display: flex; gap: 10px; margin-top: 10px; }
-.settings-actions .btn { flex: 1; justify-content: center; }
-.settings-status { font-size: 13px; margin-top: 10px; padding: 10px; border-radius: 8px; display: none; }
-.settings-status.show { display: block; }
-.settings-status.success { background: rgba(168,206,0,0.1); color: var(--secondary); border: 1px solid rgba(168,206,0,0.2); }
-.settings-status.error { background: rgba(255,0,0,0.1); color: #ff4444; border: 1px solid rgba(255,0,0,0.2); }
+
+
 .ai-badge { position: absolute; bottom: 4px; right: 6px; font-size: 8px; color: rgba(255,255,255,0.3); font-weight: 400; letter-spacing: 0.3px; z-index: 2; background: rgba(0,0,0,0.4); padding: 1px 6px; border-radius: 4px; }
 .product-img-container { position: relative; width: 100%; height: 160px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; background: #0a0a0a; margin-bottom: 12px; }
 .product-img-container img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 8px; }
@@ -1270,7 +1252,6 @@ body { transition: background 0.4s ease, color 0.4s ease; }
   .cursor-dot, .cursor-ring { display: none !important; }
   .section-indicators { display: none; }
   .float-particle { display: none; }
-  .settings-btn { top: 75px; right: 12px; width: 36px; height: 36px; font-size: 15px; }
   .product-img-container { height: 120px; }
 }
 @media (max-width: 768px) {
@@ -1419,26 +1400,7 @@ body { transition: background 0.4s ease, color 0.4s ease; }
 <div class="section-indicators" id="sectionIndicators"></div>
 
 <!-- SETTINGS -->
-<button class="settings-btn" id="settingsBtn" title="Settings">⚙</button>
-<div class="settings-modal" id="settingsModal">
-  <div class="settings-panel">
-    <button class="settings-close" id="settingsClose">✕</button>
-    <h3>⚙ <span data-i18n="settings_title">Parametrlər</span></h3>
-    <p data-i18n="settings_desc">Gemini API açarınızı daxil edərək real akkumulyator şəkilləri yaradın. Açarı <a href="https://aistudio.google.com" target="_blank" style="color:var(--primary);">aistudio.google.com</a> saytından pulsuz əldə edin.</p>
-    <div class="settings-field">
-      <label data-i18n="settings_key_label">Gemini API Açarı</label>
-      <input type="password" id="geminiKeyInput" placeholder="AIzaSy...">
-      <div class="hint" data-i18n="settings_key_hint">Açar yalnız brauzerinizdə saxlanılır, heç yerə göndərilmir</div>
-    </div>
-    <div class="settings-actions">
-      <button class="btn btn-primary" id="geminiSaveBtn" data-i18n="settings_save">Yadda Saxla</button>
-      <button class="btn btn-secondary" id="geminiClearBtn" data-i18n="settings_clear">Sil</button>
-      <button class="btn btn-secondary" id="geminiRefreshBtn" title="Şəkilləri yenilə">↻</button>
-    </div>
-    <div class="settings-status" id="settingsStatus"></div>
-    </div>
-  </div>
-</div>
+
 
 <canvas id="particles-canvas"></canvas>
 
@@ -3191,39 +3153,6 @@ if (heroBattery) {
   });
 }
 
-// ===== SETTINGS (Gemini API) =====
-document.getElementById('settingsBtn').addEventListener('click', () => {
-  document.getElementById('settingsModal').classList.add('open');
-  document.getElementById('geminiKeyInput').value = getGeminiKey();
-});
-document.getElementById('settingsClose').addEventListener('click', () => {
-  document.getElementById('settingsModal').classList.remove('open');
-});
-document.getElementById('settingsModal').addEventListener('click', (e) => {
-  if (e.target === e.currentTarget) document.getElementById('settingsModal').classList.remove('open');
-});
-document.getElementById('geminiSaveBtn').addEventListener('click', () => {
-  const key = document.getElementById('geminiKeyInput').value.trim();
-  const status = document.getElementById('settingsStatus');
-  if (!key || !key.startsWith('AIza')) {
-    status.className = 'settings-status show error';
-    status.textContent = 'Düzgün API açarı daxil edin (AIza... il— aəlayır)';
-    return;
-  }
-  localStorage.setItem('gemini_key', key);
-  status.className = 'settings-status show success';
-  status.textContent = '— PI açarı yadda saxlanıldı! — illər yaradılır...';
-  setTimeout(() => { document.getElementById('settingsModal').classList.remove('open'); location.reload(); }, 1500);
-});
-document.getElementById('geminiClearBtn').addEventListener('click', () => {
-  localStorage.removeItem('gemini_key');
-  localStorage.removeItem('gemini-cache');
-  const status = document.getElementById('settingsStatus');
-  status.className = 'settings-status show success';
-  status.textContent = '— PI açarı və e— ilindi';
-  setTimeout(() => { document.getElementById('settingsModal').classList.remove('open'); location.reload(); }, 1000);
-});
-
 // ===== PART 2A: PARALLAX HERO =====
 let paraTicking = false;
 window.addEventListener('scroll', () => {
@@ -3373,7 +3302,7 @@ if (aboutText) typewriterObserver.observe(aboutText);
     requestAnimationFrame(updateRing);
   }
   updateRing();
-  document.querySelectorAll('a, .btn, .magnetic-card, .brand-card, .feature-card, .battery-type-card, .quiz-option, .theme-toggle-btn, .settings-btn').forEach(el => {
+  document.querySelectorAll('a, .btn, .magnetic-card, .brand-card, .feature-card, .battery-type-card, .quiz-option, .theme-toggle-btn').forEach(el => {
     el.addEventListener('mouseenter', () => ring.classList.add('expanded'));
     el.addEventListener('mouseleave', () => ring.classList.remove('expanded'));
   });
@@ -3450,13 +3379,6 @@ document.querySelectorAll('.collapsible-btn').forEach(btn => {
 });
 
 // ===== SETTINGS REFRESH =====
-document.getElementById('geminiRefreshBtn').addEventListener('click', () => {
-  localStorage.removeItem('gemini-cache');
-  const status = document.getElementById('settingsStatus');
-  status.className = 'settings-status show success';
-  status.textContent = '—— illər keəi təmizləndi. Səhif— enilənir...';
-  setTimeout(() => location.reload(), 1000);
-});
 
 // ===== FLOATING PARTICLES =====
 (function() {
