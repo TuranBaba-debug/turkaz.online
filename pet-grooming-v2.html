@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Paws — Pet Grooming</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --slate-50: #F8FAFC;
+  --slate-100: #F1F5F9;
+  --slate-200: #E2E8F0;
+  --slate-300: #CBD5E1;
+  --slate-400: #94A3B8;
+  --slate-500: #64748B;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1E293B;
+  --slate-900: #0F172A;
+  --orange-400: #FB923C;
+  --orange-500: #F97316;
+  --orange-600: #EA580C;
+  --orange-50: #FFF7ED;
+  --white: #FFFFFF;
+  --font-fredoka: 'Fredoka', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-inter);
+  background: var(--slate-50);
+  color: var(--slate-800);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 96px 0; }
+
+/* utility-like classes */
+.bg\\[\\#F8FAFC\\] { background: var(--slate-50); }
+.bg-white { background: var(--white); }
+.bg-orange-50 { background: var(--orange-50); }
+.text-slate-800 { color: var(--slate-800); }
+.text-slate-500 { color: var(--slate-500); }
+.text-orange-500 { color: var(--orange-500); }
+.text-white { color: var(--white); }
+.font-fredoka { font-family: var(--font-fredoka); }
+.font-inter { font-family: var(--font-inter); }
+.text-center { text-align: center; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+/* navbar */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--slate-200);
+  transition: all 0.3s;
+}
+.navbar.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+.logo {
+  font-family: var(--font-fredoka);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--slate-800);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-icon {
+  width: 34px; height: 34px;
+  background: var(--orange-500);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--white);
+}
+.logo span { color: var(--orange-500); }
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--slate-600);
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--orange-500); }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  font-family: var(--font-inter);
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-orange {
+  background: var(--orange-500);
+  color: var(--white);
+}
+.btn-orange:hover { background: var(--orange-600); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent;
+  color: var(--slate-800);
+  border: 2px solid var(--slate-300);
+}
+.btn-outline:hover { border-color: var(--orange-500); color: var(--orange-500); transform: translateY(-2px); }
+.btn-sm { padding: 8px 20px; font-size: 13px; }
+
+/* hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  background: var(--slate-800);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.hero h1 {
+  font-family: var(--font-fredoka);
+  font-size: clamp(38px, 5vw, 56px);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: var(--slate-800);
+}
+.hero h1 .highlight { color: var(--orange-500); }
+.hero p {
+  font-size: 17px;
+  color: var(--slate-500);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-illustration {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 1;
+  border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%;
+  background: linear-gradient(135deg, var(--orange-50), #FED7AA);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 160px;
+  position: relative;
+  animation: morph 8s ease-in-out infinite;
+}
+@keyframes morph {
+  0%, 100% { border-radius: 50% 50% 30% 70% / 60% 40% 60% 40%; }
+  33% { border-radius: 40% 60% 60% 40% / 50% 60% 40% 50%; }
+  66% { border-radius: 60% 40% 40% 60% / 40% 50% 50% 60%; }
+}
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 40px;
+}
+.hero-stat { text-align: left; }
+.hero-stat .num {
+  font-family: var(--font-fredoka);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+.hero-stat .lbl { font-size: 13px; color: var(--slate-400); font-weight: 500; }
+
+/* section titles */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--orange-500);
+  background: var(--orange-50);
+  padding: 6px 14px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--font-fredoka);
+  font-size: clamp(28px, 3.5vw, 40px);
+  line-height: 1.15;
+  margin-bottom: 14px;
+  color: var(--slate-800);
+}
+.section-title .highlight { color: var(--orange-500); }
+.section-sub {
+  font-size: 16px;
+  color: var(--slate-500);
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+/* services */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.service-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: all 0.3s;
+  border: 1px solid var(--slate-200);
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--orange-500);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+  transform-origin: left;
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+  border-color: var(--orange-200);
+}
+.service-icon {
+  width: 64px; height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 16px;
+  transition: transform 0.3s;
+}
+.service-card:hover .service-icon { transform: scale(1.1) rotate(-4deg); }
+.service-card h3 {
+  font-family: var(--font-fredoka);
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: var(--slate-800);
+}
+.service-card p {
+  font-size: 14px;
+  color: var(--slate-500);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.service-card .price {
+  font-family: var(--font-fredoka);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--orange-500);
+}
+
+/* about */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.about-visual {
+  position: relative;
+}
+.about-visual-inner {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #FED7AA, var(--orange-50));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+  position: relative;
+}
+.about-badge {
+  position: absolute;
+  bottom: -16px;
+  right: -16px;
+  background: var(--white);
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--slate-200);
+}
+.about-badge .num {
+  font-family: var(--font-fredoka);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--orange-500);
+}
+.about-badge .lbl {
+  font-size: 12px;
+  color: var(--slate-500);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.about-text { font-size: 15px; color: var(--slate-500); line-height: 1.8; margin-bottom: 20px; }
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+.about-stat {
+  text-align: center;
+  padding: 16px 12px;
+  background: var(--orange-50);
+  border-radius: 12px;
+}
+.about-stat .num { font-family: var(--font-fredoka); font-size: 26px; font-weight: 700; color: var(--slate-800); }
+.about-stat .lbl { font-size: 12px; color: var(--slate-500); font-weight: 500; margin-top: 2px; }
+
+/* testimonials */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.t-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 28px;
+  border: 1px solid var(--slate-200);
+  transition: all 0.3s;
+}
+.t-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.04); }
+.t-card .stars { font-size: 16px; margin-bottom: 10px; }
+.t-card .quote {
+  font-size: 14px;
+  color: var(--slate-600);
+  line-height: 1.7;
+  margin-bottom: 18px;
+  font-style: italic;
+}
+.t-card .author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.t-card .avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+}
+.t-card .info h4 { font-size: 14px; font-weight: 700; }
+.t-card .info p { font-size: 12px; color: var(--slate-400); }
+
+/* CTA */
+.cta-box {
+  background: linear-gradient(135deg, #FED7AA, #FDBA74);
+  border-radius: 24px;
+  padding: 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-box::before {
+  content: '🐾🐶🐱';
+  position: absolute;
+  font-size: 100px;
+  opacity: 0.06;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+.cta-box h2 {
+  font-family: var(--font-fredoka);
+  font-size: clamp(28px, 3.5vw, 40px);
+  color: var(--slate-800);
+  margin-bottom: 12px;
+  position: relative;
+}
+.cta-box p {
+  font-size: 16px;
+  color: var(--slate-600);
+  max-width: 500px;
+  margin: 0 auto 28px;
+  position: relative;
+}
+
+/* contact */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 48px;
+}
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: var(--white);
+  border-radius: 14px;
+  border: 1px solid var(--slate-200);
+  transition: all 0.3s;
+}
+.contact-item:hover { border-color: var(--orange-300); }
+.contact-item .icon {
+  width: 44px; height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  background: var(--orange-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.contact-item h4 { font-family: var(--font-fredoka); font-size: 15px; margin-bottom: 2px; }
+.contact-item p { font-size: 14px; color: var(--slate-500); }
+.contact-cards { display: flex; flex-direction: column; gap: 16px; }
+
+/* footer */
+.footer {
+  background: var(--slate-900);
+  color: var(--white);
+  padding: 56px 0 28px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 36px;
+}
+.footer-col h4 {
+  font-family: var(--font-fredoka);
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+.footer-col p, .footer-col a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  line-height: 2.2;
+  display: block;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--orange-400); }
+.footer-socials { display: flex; gap: 10px; margin-top: 16px; }
+.footer-socials a {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+.footer-socials a:hover { background: var(--orange-500); transform: translateY(-2px); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+}
+
+/* scroll animation */
+.fade-up { opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(0.4,0,0.2,1); }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.stagger > * { opacity: 0; transform: translateY(24px); transition: all 0.5s cubic-bezier(0.4,0,0.2,1); }
+.stagger.visible > * { opacity: 1; transform: translateY(0); }
+.stagger > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger > *:nth-child(2) { transition-delay: 0.1s; }
+.stagger > *:nth-child(3) { transition-delay: 0.15s; }
+.stagger > *:nth-child(4) { transition-delay: 0.2s; }
+.stagger > *:nth-child(5) { transition-delay: 0.25s; }
+.stagger > *:nth-child(6) { transition-delay: 0.3s; }
+
+/* modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.5);
+  backdrop-filter: blur(6px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 44px 36px 36px;
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.35s ease;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.modal-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--slate-100);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover { background: var(--orange-500); color: var(--white); }
+.modal h2 { font-family: var(--font-fredoka); font-size: 26px; margin-bottom: 6px; }
+.modal p { font-size: 14px; color: var(--slate-500); margin-bottom: 24px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--slate-700);
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--slate-50);
+  border: 1.5px solid var(--slate-200);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: var(--font-inter);
+  transition: all 0.3s;
+  outline: none;
+  color: var(--slate-800);
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--orange-500);
+  background: var(--white);
+}
+.form-group textarea { min-height: 90px; resize: vertical; }
+.form-group .btn { width: 100%; justify-content: center; }
+
+/* responsive */
+@media (max-width: 900px) {
+  .hero .container { grid-template-columns: 1fr; text-align: center; }
+  .hero p { margin: 0 auto 32px; }
+  .hero-buttons { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-stat { text-align: center; }
+  .about-grid { grid-template-columns: 1fr; text-align: center; }
+  .about-stats { max-width: 360px; margin-left: auto; margin-right: auto; }
+  .about-badge { right: 50%; transform: translateX(50%); }
+  .contact-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: rgba(255,255,255,0.98);
+    flex-direction: column;
+    padding: 24px 32px;
+    gap: 18px;
+    border-bottom: 1px solid var(--slate-200);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  }
+  .hamburger { display: flex; }
+  .nav-cta { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid > :first-child { grid-column: span 2; }
+}
+@media (max-width: 480px) {
+  .section { padding: 60px 0; }
+  .hero { min-height: auto; padding: 90px 0 50px; }
+  .hero-illustration { font-size: 100px; max-width: 260px; }
+  .hero-stats { gap: 20px; flex-wrap: wrap; }
+  .services-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .cta-box { padding: 36px 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .about-stat .num { font-size: 22px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-grid > :first-child { grid-column: span 1; }
+  .modal { padding: 32px 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#" class="logo">
+      <span class="logo-icon">🐾</span>
+      Happy<span>Paws</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#hero">Home</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+      <a href="#book" class="btn btn-orange btn-sm nav-cta">Book Grooming</a>
+    </div>
+    <button class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="fade-up">
+      <h1>Happy Pets, <span class="highlight">Happy Life</span></h1>
+      <p>Professional pet grooming with love and care. We treat every pet like family — gentle, stress-free, and always wagging tails.</p>
+      <div class="hero-buttons">
+        <a href="#book" class="btn btn-orange">📅 Book Grooming</a>
+        <a href="#services" class="btn btn-outline">Our Services</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">6+</div><div class="lbl">Years</div></div>
+        <div class="hero-stat"><div class="num">3K+</div><div class="lbl">Pets Groomed</div></div>
+        <div class="hero-stat"><div class="num">4.9</div><div class="lbl">Rating</div></div>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div style="position:relative;display:inline-block;">
+        <div class="hero-illustration">🐶</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-tag" style="margin:0 auto 12px;">✂️ Our Services</div>
+      <h2 class="section-title">Everything Your <span class="highlight">Pet</span> Needs</h2>
+      <p class="section-sub mx-auto" style="margin-bottom:0;">From a quick nail trim to a full groom — we do it all with a gentle touch.</p>
+    </div>
+    <div class="services-grid stagger fade-up">
+      <div class="service-card">
+        <div class="service-icon" style="background:#FFF7ED;">🛁</div>
+        <h3>Full Groom</h3>
+        <p>Bath, blow-dry, haircut, nail trim, ear cleaning — the complete package.</p>
+        <div class="price">$55+</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:#FFF7ED;">✂️</div>
+        <h3>Haircut & Style</h3>
+        <p>Breed-specific cuts and creative styles that bring out your pet's personality.</p>
+        <div class="price">$40+</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:#FFF7ED;">🧴</div>
+        <h3>Bath & Brush</h3>
+        <p>Gentle wash, conditioning, thorough brushing, and a relaxing finish.</p>
+        <div class="price">$30+</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:#FFF7ED;">💅</div>
+        <h3>Nail & Paw Care</h3>
+        <p>Trimming, filing, paw moisturizing — keeping every step comfortable.</p>
+        <div class="price">$18+</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:#FFF7ED;">👂</div>
+        <h3>Ear & Teeth</h3>
+        <p>Gentle ear cleaning, teeth brushing, and fresh-breath treatment.</p>
+        <div class="price">$15+</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:#FFF7ED;">🎀</div>
+        <h3>De-shedding</h3>
+        <p>Specialized treatment to reduce loose fur and keep your home cleaner.</p>
+        <div class="price">$45+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-orange-50" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual fade-up">
+        <div style="position:relative;display:inline-block;width:100%;">
+          <div class="about-visual-inner">🐈</div>
+          <div class="about-badge">
+            <span class="num">6+</span>
+            <span class="lbl">Years of<br>Grooming</span>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="section-tag">❤️ About Us</div>
+        <h2 class="section-title">Grooming with <span class="highlight">Heart</span></h2>
+        <p class="about-text">Happy Paws was born from a simple belief: every pet deserves to feel pampered, safe, and loved. Our certified groomers use gentle techniques and eco-friendly products to make every visit stress-free.</p>
+        <p class="about-text">We take the time to understand each pet's unique personality and needs — because a happy pet means a happy home.</p>
+        <div class="about-stats">
+          <div class="about-stat"><div class="num">6+</div><div class="lbl">Years</div></div>
+          <div class="about-stat"><div class="num">3K</div><div class="lbl">Pets</div></div>
+          <div class="about-stat"><div class="num">4.9</div><div class="lbl">Rating</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-tag" style="margin:0 auto 12px;">⭐ Happy Pet Parents</div>
+      <h2 class="section-title">What <span class="highlight">Pet Owners</span> Say</h2>
+      <p class="section-sub mx-auto" style="margin-bottom:0;">Real reviews from real pet parents who trust us with their furry family.</p>
+    </div>
+    <div class="testimonials-grid stagger fade-up">
+      <div class="t-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="quote">"Our golden retriever Charlie came out looking like a million bucks. He was so relaxed — I couldn't believe it was the same dog!"</p>
+        <div class="author">
+          <div class="avatar" style="background:var(--orange-500);">S</div>
+          <div class="info"><h4>Sarah M.</h4><p>Golden Retriever • Charlie</p></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="quote">"Finally a groomer who understands cats! Our Persian Mittens actually purred during her session. Absolute miracle workers!"</p>
+        <div class="author">
+          <div class="avatar" style="background:var(--slate-600);">J</div>
+          <div class="info"><h4>Jessica L.</h4><p>Persian Cat • Mittens</p></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="quote">"The de-shedding treatment changed everything. So much less fur at home and our husky Loki looks absolutely stunning."</p>
+        <div class="author">
+          <div class="avatar" style="background:var(--slate-800);">M</div>
+          <div class="info"><h4>Mike & Emma</h4><p>Siberian Husky • Loki</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-orange-50" id="book">
+  <div class="container">
+    <div class="cta-box fade-up">
+      <h2>Ready to Spoil Your Pet? 🐾</h2>
+      <p>Book an appointment today and give your furry friend the pampering they deserve. First-time customers get 10% off!</p>
+      <button class="btn btn-orange" onclick="openModal()" style="font-size:16px;padding:14px 36px;">📅 Book a Grooming</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-tag" style="margin:0 auto 12px;">📍 Get in Touch</div>
+      <h2 class="section-title">We'd Love to <span class="highlight">Hear</span> From You</h2>
+    </div>
+    <div class="contact-grid fade-up">
+      <div class="contact-cards">
+        <div class="contact-item">
+          <div class="icon">📍</div>
+          <div><h4>Location</h4><p>123 Wagging Tail Lane, Petville, NY 10001</p></div>
+        </div>
+        <div class="contact-item">
+          <div class="icon">🕐</div>
+          <div><h4>Hours</h4><p>Mon–Fri: 8AM–7PM • Sat: 9AM–5PM • Sun: Closed</p></div>
+        </div>
+        <div class="contact-item">
+          <div class="icon">📞</div>
+          <div><h4>Contact</h4><p>(555) 123-4567 • hello@happypaws.com</p></div>
+        </div>
+      </div>
+      <div style="background:var(--orange-50);border-radius:20px;padding:36px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <span style="font-size:72px;display:block;margin-bottom:12px;">🐾</span>
+        <p style="font-size:15px;color:var(--slate-500);margin-bottom:20px;">Follow us for grooming tips, adorable pet photos, and special offers!</p>
+        <div style="display:flex;gap:10px;">
+          <span style="width:40px;height:40px;border-radius:10px;background:var(--orange-500);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:default;">📸</span>
+          <span style="width:40px;height:40px;border-radius:10px;background:var(--slate-700);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:default;">💬</span>
+          <span style="width:40px;height:40px;border-radius:10px;background:var(--slate-500);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:default;">🐦</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom:12px;color:var(--white);">
+          <span class="logo-icon">🐾</span>
+          Happy<span style="color:var(--orange-400);">Paws</span>
+        </div>
+        <p>Where every pet gets the love, care, and pampering they deserve. Professional grooming in a stress-free environment since 2019.</p>
+        <div class="footer-socials">
+          <a href="#">📸</a>
+          <a href="#">💬</a>
+          <a href="#">🐦</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#hero">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#book">Book Now</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#services">Full Groom</a>
+        <a href="#services">Haircut & Style</a>
+        <a href="#services">Bath & Brush</a>
+        <a href="#services">Nail Care</a>
+        <a href="#services">De-shedding</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="#">123 Wagging Tail Lane</a>
+        <a href="tel:+15551234567">(555) 123-4567</a>
+        <a href="mailto:hello@happypaws.com">hello@happypaws.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Happy Paws Pet Grooming. All rights reserved.</p>
+      <p>Made with 🐾 for pet lovers</p>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>📅 Book a Grooming</h2>
+    <p>Fill in the details and we'll confirm your appointment within 2 hours!</p>
+    <form onsubmit="handleBooking(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" required placeholder="e.g. Sarah Johnson">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" required placeholder="you@email.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" required placeholder="(555) 000-0000">
+        </div>
+        <div class="form-group">
+          <label>Pet Type</label>
+          <select required>
+            <option value="">Select...</option>
+            <option>🐕 Dog</option>
+            <option>🐈 Cat</option>
+            <option>🐇 Rabbit</option>
+            <option>🐹 Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Pet Name</label>
+          <input type="text" required placeholder="Your pet's name">
+        </div>
+        <div class="form-group">
+          <label>Breed / Size</label>
+          <input type="text" placeholder="e.g. Golden Retriever">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Service</label>
+        <select required>
+          <option value="">Choose a service...</option>
+          <option>🛁 Full Groom — $55+</option>
+          <option>✂️ Haircut & Style — $40+</option>
+          <option>🧴 Bath & Brush — $30+</option>
+          <option>💅 Nail & Paw Care — $18+</option>
+          <option>👂 Ear & Teeth Clean — $15+</option>
+          <option>🎀 De-shedding — $45+</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Preferred Date & Time</label>
+        <input type="datetime-local" required>
+      </div>
+      <div class="form-group">
+        <label>Special Notes</label>
+        <textarea placeholder="Allergies, behavior notes, or special requests..."></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-orange">📅 Confirm Booking</button>
+      </div>
+      <p style="font-size:12px;color:var(--slate-400);text-align:center;margin:0;">We'll confirm within 2 hours. No payment needed upfront!</p>
+    </form>
+  </div>
+</div>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('open');
+  });
+});
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.fade-up, .stagger').forEach(el => observer.observe(el));
+function openModal() {
+  document.getElementById('bookingModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('bookingModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('bookingModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+function handleBooking(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.textContent = '✅ Confirmed!';
+  btn.style.background = '#059669';
+  setTimeout(() => {
+    closeModal();
+    btn.textContent = '📅 Confirm Booking';
+    btn.style.background = '';
+    e.target.reset();
+    alert('🎉 Booking received! We\'ll confirm within 2 hours.');
+  }, 1500);
+}
+</script>
+</body>
+</html>
