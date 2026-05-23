@@ -1,0 +1,25 @@
+{
+  "name": "turkaz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fix_encoding.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TuranBaba-debug/turkaz.online.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TuranBaba-debug/turkaz.online/issues"
+  },
+  "homepage": "https://github.com/TuranBaba-debug/turkaz.online#readme",
+  "dependencies": {
+    "@21st-sdk/agent": "^0.0.18",
+    "zod": "^4.4.3"
+  }
+}
