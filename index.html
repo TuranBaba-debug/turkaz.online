@@ -1143,25 +1143,27 @@ body { transition: background 0.4s ease, color 0.4s ease; }
 .quiz-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--gray); font-size: 24px; cursor: pointer; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
 .quiz-close:hover { background: rgba(255,255,255,0.06); color: var(--white); }
 .quiz-modal h3 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
-.quiz-modal > p { font-size: 14px; color: var(--gray); margin-bottom: 25px; }
-.quiz-question { margin-bottom: 20px; }
-.quiz-question label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: var(--gray-light); }
-.quiz-options { display: flex; flex-direction: column; gap: 8px; }
-.quiz-option { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; cursor: pointer; transition: var(--transition); font-size: 14px; color: var(--gray-light); }
-.quiz-option:hover { background: rgba(255,193,7,0.05); border-color: rgba(255,193,7,0.12); }
-.quiz-option input[type="radio"] { accent-color: var(--primary); width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
-.quiz-option.selected { background: rgba(255,193,7,0.08); border-color: var(--primary); color: var(--white); }
-.quiz-result { display: none; text-align: center; padding: 20px 0; }
-.quiz-result.show { display: block; }
-.quiz-result .qr-icon { font-size: 48px; margin-bottom: 15px; }
-.quiz-result h4 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-.quiz-result p { font-size: 14px; color: var(--gray); margin-bottom: 20px; line-height: 1.6; }
-.quiz-result .btn { margin-top: 10px; }
-.quiz-progress { display: flex; gap: 6px; justify-content: center; margin-bottom: 25px; }
-.quiz-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.1); transition: var(--transition); }
-.quiz-dot.active { background: var(--primary); }
-.quiz-dot.done { background: var(--secondary); }
-.quiz-btn-row { display: flex; gap: 12px; margin-top: 20px; justify-content: space-between; }
+.quiz-modal > p { font-size: 14px; color: var(--gray); margin-bottom: 20px; }
+.quiz-progress-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; margin-bottom: 8px; overflow: hidden; }
+.quiz-progress-bar .qpb-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 3px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
+.quiz-step-counter { text-align: center; font-size: 12px; color: var(--gray); margin-bottom: 20px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.quiz-question { margin-bottom: 10px; }
+.quiz-question label { display: block; font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--white); line-height: 1.4; }
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-option { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; cursor: pointer; transition: all 0.25s ease; font-size: 14px; color: var(--gray-light); }
+.quiz-option:hover { background: rgba(255,193,7,0.05); border-color: rgba(255,193,7,0.15); transform: translateX(4px); }
+.quiz-option input[type="radio"] { accent-color: var(--primary); width: 18px; height: 18px; cursor: pointer; flex-shrink: 0; }
+.quiz-option.selected { background: rgba(255,193,7,0.08); border-color: var(--primary); color: var(--white); box-shadow: 0 0 20px rgba(255,193,7,0.05); }
+.quiz-option .qo-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.15); flex-shrink: 0; transition: var(--transition); }
+.quiz-option.selected .qo-dot { border-color: var(--primary); background: var(--primary); box-shadow: 0 0 10px rgba(255,193,7,0.3); }
+.quiz-result { display: none; text-align: center; padding: 10px 0; }
+.quiz-result.show { display: block; animation: fadeInUp 0.5s ease-out; }
+.quiz-result .qr-icon { font-size: 56px; margin-bottom: 12px; display: block; }
+.quiz-result h4 { font-size: 24px; font-weight: 800; margin-bottom: 8px; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.quiz-result p { font-size: 15px; color: var(--gray); margin-bottom: 10px; line-height: 1.6; }
+.quiz-result .qr-whatsapp { margin-top: 16px; }
+.quiz-result .qr-whatsapp .btn { width: 100%; justify-content: center; font-size: 18px; padding: 20px; }
+.quiz-btn-row { display: flex; gap: 12px; margin-top: 24px; justify-content: space-between; }
 .quiz-btn-row .btn { min-width: 100px; justify-content: center; }
 /* ===== NEWSLETTER ===== */
 .newsletter-card { background: linear-gradient(135deg, rgba(255,193,7,0.05), rgba(0,149,255,0.05)); border: 1px solid rgba(255,193,7,0.08); border-radius: var(--radius); padding: 25px; margin-top: 20px; }
@@ -1765,28 +1767,32 @@ body { transition: background 0.4s ease, color 0.4s ease; }
 <!-- QUIZ OVERLAY -->
 <div class="quiz-overlay" id="quiz">
   <div class="quiz-modal">
-    <button class="quiz-close" id="quizClose">ə</button>
-    <h3 data-i18n="quiz_title">Hansı Akkumulyator Sizə Uyğundur?</h3>
-    <p data-i18n="quiz_sub">3 sual, dəqiq tövsiyə alın</p>
-    <div class="quiz-progress" id="quizProgress">
-      <span class="quiz-dot active"></span>
-      <span class="quiz-dot"></span>
-      <span class="quiz-dot"></span>
+    <button class="quiz-close" id="quizClose">✕</button>
+    <h3>Akkumulyator Seçim Rehberi</h3>
+    <p>4 sual, sizə ən uyğun akkumulyatoru tapaq</p>
+    <div class="quiz-progress-bar" id="quizProgressBar">
+      <div class="qpb-fill" id="qpbFill"></div>
     </div>
+    <div class="quiz-step-counter" id="quizStepCounter">Sual 1 / 4</div>
     <div id="quizStep">
       <div class="quiz-question" id="quizQuestionArea">
-        <label id="quizQuestionLabel">Sual 1: Avtomobiliniz hansı tipdir?</label>
+        <label id="quizQuestionLabel"></label>
         <div class="quiz-options" id="quizOptions"></div>
       </div>
       <div class="quiz-result" id="quizResult">
-        <div class="qr-icon" id="qrIcon">—</div>
+        <div class="qr-icon" id="qrIcon">⚡</div>
         <h4 id="qrTitle">Tövsiyəmiz</h4>
-        <p id="qrDesc">Sizin üçün —  uyəun akkumulyator...</p>
-        <a href="#products" class="btn btn-primary" id="quizViewBtn" data-i18n="quiz_btn">Məhsullara Bax</a>
+        <p id="qrDesc">Sizin üçün ən uyğun akkumulyator...</p>
+        <div class="qr-whatsapp">
+          <a href="https://wa.me/994503791806" target="_blank" class="btn btn-green" style="width:100%;justify-content:center;font-size:18px;padding:20px;">
+            ⚡ WhatsApp ilə sifariş et
+          </a>
+        </div>
+        <button class="btn btn-secondary btn-sm" id="quizRestartBtn" style="margin-top:10px;width:100%;justify-content:center;">Testi təkrar et</button>
       </div>
       <div class="quiz-btn-row">
-        <button class="btn btn-secondary btn-sm" id="quizPrev" data-i18n="quiz_prev">Geri</button>
-        <button class="btn btn-primary btn-sm" id="quizNext" data-i18n="quiz_next">İrəli</button>
+        <button class="btn btn-secondary btn-sm" id="quizPrev">⬅ Geri</button>
+        <button class="btn btn-primary btn-sm" id="quizNext">İrəli ➡</button>
       </div>
     </div>
   </div>
@@ -3034,89 +3040,112 @@ if (statsGrid) countObserver.observe(statsGrid);
 // ===== QUIZ =====
 const quizQuestions = [
   { q: 'Avtomobiliniz hansı tipdir?', options: [
-    { label: 'Minik avtomobili', value: 'car', icon: '—' },
-    { label: 'Yük maəını / Avtobus', value: 'truck', icon: '—' },
-    { label: 'Xüsusi tətbiq (solar/UPS/dəniz)', value: 'special', icon: 'ə️' },
+    { label: 'Adi minik (sedan, hatchback)', value: 'car' },
+    { label: 'Start-Stop sistemli', value: 'startstop' },
+    { label: 'Yük maşını / avtobus', value: 'truck' },
+    { label: 'Elektrik / Hibrid', value: 'ev' },
+    { label: 'Su/dəniz nəqliyyatı', value: 'marine' },
   ]},
-  { q: 'Hansı texnologiyaya üstünlük verirsiniz?', options: [
-    { label: 'Adı Starter (Standard)', value: 'standard', icon: '—' },
-    { label: 'Start-Stop (AGM/EFB)', value: 'startstop', icon: 'ə' },
-    { label: 'Dərin tsikl (GEL/OPzS)', value: 'deep', icon: '—' },
+  { q: 'Akkumulyatorunuz nə vaxt dəyişdirilib?', options: [
+    { label: '0-2 il əvvəl', value: 'new' },
+    { label: '2-4 il əvvəl', value: 'mid' },
+    { label: '4+ il əvvəl', value: 'old' },
+    { label: 'Bilmirəm', value: 'unknown' },
   ]},
-  { q: 'Büdcəniz n— ədərdir?', options: [
-    { label: '~70-100 AZN (Ekonom)', value: 'budget', icon: '⚡' },
-    { label: '~100-200 AZN (Orta)', value: 'mid', icon: '⚡' },
-    { label: '200+ AZN (Premium)', value: 'premium', icon: '—' },
+  { q: 'Əsas probleminiz nədir?', options: [
+    { label: 'Maşın çətin işə düşür', value: 'hardstart' },
+    { label: 'Akkumulyator tez boşalır', value: 'drain' },
+    { label: 'Yeni akkumulyator almaq istəyirəm', value: 'newbattery' },
+    { label: 'Texniki məsləhət lazımdır', value: 'advice' },
+  ]},
+  { q: 'Büdcəniz nə qədərdir?', options: [
+    { label: '50-100 AZN', value: 'budget' },
+    { label: '100-200 AZN', value: 'mid' },
+    { label: '200-400 AZN', value: 'premium' },
+    { label: '400+ AZN (premium)', value: 'ultra' },
   ]},
 ];
-const quizResults = {
-  'car_standard_budget': { icon: '—', title: 'Klas / Yuras 60-75Ah', desc: 'Gündəlik istifadə üçün ideal seçim. Qiymət/keyfiyyət balansı.' },
-  'car_standard_mid': { icon: '—', title: 'Yiğit 60-75 Sağ / Perge', desc: 'Etibarlı və ərfəli orta seqment akkumulyatoru.' },
-  'car_standard_premium': { icon: 'ə', title: 'Yiğit AGM / Bülbül EFB', desc: 'Premium keyfiyyət, uzun ömür və üksək performans.' },
-  'car_startstop_budget': { icon: 'ə', title: 'Bülbül 63 EFB', desc: 'Start-stop sistemlər üçün giri— əviyyəli EFB akkumulyatoru.' },
-  'car_startstop_mid': { icon: 'ə', title: 'Yiğit 63-72 EFB', desc: 'Optimallaədırılmı— FB texnologiyası, 2x dövr ömrü.' },
-  'car_startstop_premium': { icon: 'ə', title: 'Yiğit AGM 60-95Ah', desc: 'Start-stop sistemlər üçün —  yaxəı seçim, 3x uzun ömür.' },
-  'car_deep_budget': { icon: '—', title: 'Yiğit 12V 40AH Gel', desc: 'Giri— əviyyəli gel akkumulyatoru, solar və PS üçün.' },
-  'car_deep_mid': { icon: '—', title: 'Yiğit 12V 80-100AH Gel', desc: 'Orta ölçülü sistemlər üçün gel akkumulyatoru.' },
-  'car_deep_premium': { icon: '—', title: 'Yiğit 12V 120-200AH Gel', desc: 'Böyük sistemlər üçün yüksək tutumlu gel akkumulyatoru.' },
-  'truck_standard_budget': { icon: '—', title: 'Perge 190 / Yuras 190', desc: 'Yük maşınları üçün büdc— ostu seçim.' },
-  'truck_standard_mid': { icon: '—', title: 'Yiğit 190 Açıq/Qap', desc: 'Etibarlı və ərfəli aəır nəqliyyat akkumulyatoru.' },
-  'truck_standard_premium': { icon: '—', title: 'Yiğit 225 / Heavy Duty', desc: 'Aəır yük maəınları üçün —  güclü seçim.' },
-  'special_standard_budget': { icon: 'ə️', title: 'Yiğit 12V 40AH Gel', desc: 'Kiçik solar sistemlər və əsintisiz enerji təchizatı üçün.' },
-  'special_standard_mid': { icon: 'ə️', title: 'Yiğit 12V 80-120AH Gel', desc: 'Orta ölçülü enerji sistemləri üçün ideal.' },
-  'special_standard_premium': { icon: 'ə️', title: 'Yiğit 12V 150-200AH Gel', desc: 'Böyük enerji saxlama sistemləri üçün premium həll.' },
-};
+
+function getQuizResult(answers) {
+  const [vtype, age, problem, budget] = answers;
+  const base = { icon: '⚡', title: 'Yiğit Akü 60-75Ah', desc: 'Sizin üçün ən uyğun akkumulyator seçildi.' };
+  if (vtype === 'car') {
+    if (budget === 'budget') { base.title = 'Klas Battery / Yuras Akü 60-75Ah'; base.desc = 'Gündəlik istifadə üçün ideal, qənaətcil seçim. Klas və Yuras etibarlılıq və qiymət balansı təklif edir.'; }
+    else if (budget === 'mid') { base.title = 'Yiğit Akü 60-75 / Perge SMF'; base.desc = 'Orta seqmentdə ən yaxşı seçim. Yiğit və Perge yüksək keyfiyyət və davamlılıq təmin edir.'; }
+    else if (budget === 'premium') { base.title = 'Yiğit AGM / Bülbül EFB 63-75Ah'; base.desc = 'Premium sinif. Uzun ömürlü, yüksək performanslı akkumulyator. Start-Stop olmayan avtomobillər üçün əla seçim.'; }
+    else { base.title = 'Yiğit AGM 70-95Ah'; base.desc = 'Ultra premium. Ən yüksək keyfiyyət, maksimum güc və uzun xidmət müddəti. İstənilən minik avtomobili üçün ən yaxşı seçim.'; }
+  } else if (vtype === 'startstop') {
+    if (budget === 'budget') { base.title = 'Bülbül Battery 63 EFB'; base.desc = 'Start-Stop sistemlər üçün giriş səviyyəli EFB akkumulyatoru. Etibarlı və sərfəli.'; }
+    else if (budget === 'mid') { base.title = 'Yiğit Akü 63-72 EFB'; base.desc = 'Optimallaşdırılmış EFB texnologiyası, 2x dövr ömrü. Start-Stop avtomobillər üçün ideal seçim.'; }
+    else { base.title = 'Yiğit AGM 60-95Ah'; base.desc = 'Start-Stop sistemlər üçün ən yaxşı seçim. AGM texnologiyası 3x uzun ömür və maksimum performans təmin edir.'; }
+  } else if (vtype === 'truck') {
+    if (budget === 'budget') { base.title = 'Perge 190 / Yuras 190 Ah'; base.desc = 'Yük maşınları üçün büdcə dostu seçim. Etibarlı və davamlı.'; }
+    else if (budget === 'mid') { base.title = 'Yiğit 190 Ah Açıq/Qapalı'; base.desc = 'Orta seqment yük maşını akkumulyatoru. Yiğit keyfiyyəti ilə etibarlı performans.'; }
+    else { base.title = 'Yiğit 225 Ah / Heavy Duty'; base.desc = 'Ağır yük maşınları üçün ən güclü seçim. Maksimum güc və davamlılıq.'; }
+  } else if (vtype === 'ev') {
+    base.title = 'Yiğit 12V Gel / LFP Seriyası'; base.desc = 'Elektrik və hibrid avtomobillər üçün xüsusi hazırlanmış gel və LFP akkumulyatorları. Uzun ömür və təhlükəsizlik təmin edir.'; }
+  else if (vtype === 'marine') {
+    base.title = 'Yiğit Dəniz / Marine Seriyası'; base.desc = 'Su və dəniz nəqliyyatı üçün xüsusi marine akkumulyatorları. Vibrasiyaya davamlı, korroziyaya qarşı qorunmalı.'; }
+  if (problem === 'hardstart' || problem === 'drain') {
+    base.desc += ' Probleminiz üçün peşəkar texniki dəstək təklif edirik. Ətraflı məsləhət üçün WhatsApp ilə əlaqə saxlayın.'; }
+  return base;
+}
+
 let quizStep = 0;
 let quizAnswers = [];
 function renderQuiz() {
   const step = quizQuestions[quizStep];
-  if (!step) {
-    showQuizResult();
-    return;
-  }
+  if (!step) { showQuizResult(); return; }
   document.getElementById('quizQuestionLabel').textContent = step.q;
+  document.getElementById('quizStepCounter').textContent = `Sual ${quizStep + 1} / ${quizQuestions.length}`;
+  document.getElementById('qpbFill').style.width = `${((quizStep) / quizQuestions.length) * 100}%`;
   const container = document.getElementById('quizOptions');
-  container.innerHTML = step.options.map((opt, i) =>
-    `<label class="quiz-option${quizAnswers[quizStep] === opt.value ? ' selected' : ''}">
-      <input type="radio" name="q${quizStep}" value="${opt.value}" ${quizAnswers[quizStep] === opt.value ? 'checked' : ''}>
-      ${opt.icon} ${opt.label}
+  container.innerHTML = step.options.map((opt) =>
+    `<label class="quiz-option${quizAnswers[quizStep] === opt.value ? ' selected' : ''}" data-value="${opt.value}">
+      <span class="qo-dot"></span>
+      ${opt.label}
     </label>`
   ).join('');
-  container.querySelectorAll('input[type="radio"]').forEach(input => {
-    input.addEventListener('change', () => {
-      quizAnswers[quizStep] = input.value;
+  container.querySelectorAll('.quiz-option').forEach(el => {
+    el.addEventListener('click', () => {
       container.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
-      input.closest('.quiz-option').classList.add('selected');
+      el.classList.add('selected');
+      quizAnswers[quizStep] = el.dataset.value;
     });
   });
-  document.getElementById('quizNext').textContent = quizStep < 2 ? (i18n[currentLang]?.quiz_next || 'İrəli') : (i18n[currentLang]?.quiz_btn || 'Məhsullara Bax');
+  const isLast = quizStep >= quizQuestions.length - 1;
+  document.getElementById('quizNext').textContent = isLast ? 'Nəticəni göstər ➡' : 'İrəli ➡';
   document.getElementById('quizPrev').style.display = quizStep > 0 ? '' : 'none';
-  document.querySelectorAll('.quiz-dot').forEach((d, i) => {
-    d.classList.toggle('active', i === quizStep);
-    d.classList.toggle('done', i < quizStep);
-  });
 }
 function showQuizResult() {
+  document.getElementById('qpbFill').style.width = '100%';
   document.getElementById('quizQuestionArea').style.display = 'none';
   document.getElementById('quizPrev').style.display = 'none';
   document.getElementById('quizNext').style.display = 'none';
+  document.getElementById('quizStepCounter').style.display = 'none';
   const r = document.getElementById('quizResult');
   r.classList.add('show');
-  const key = quizAnswers.join('_');
-  const result = quizResults[key] || quizResults['car_standard_mid'];
+  const result = getQuizResult(quizAnswers);
   document.getElementById('qrIcon').textContent = result.icon;
   document.getElementById('qrTitle').textContent = result.title;
   document.getElementById('qrDesc').textContent = result.desc;
-  document.getElementById('quizViewBtn').href = '#products';
+}
+function resetQuiz() {
+  quizStep = 0;
+  quizAnswers = [];
+  document.getElementById('quizResult').classList.remove('show');
+  document.getElementById('quizQuestionArea').style.display = '';
+  document.getElementById('quizPrev').style.display = '';
+  document.getElementById('quizNext').style.display = '';
+  document.getElementById('quizStepCounter').style.display = '';
+  document.getElementById('qpbFill').style.width = '0%';
+  renderQuiz();
 }
 document.getElementById('quizNext').addEventListener('click', () => {
-  if (!quizAnswers[quizStep]) { alert('Zəhmət olmasa seçim edin!'); return; }
+  if (!quizAnswers[quizStep]) { return; }
   quizStep++;
-  if (quizStep >= quizQuestions.length) {
-    showQuizResult();
-  } else {
-    renderQuiz();
-  }
+  if (quizStep >= quizQuestions.length) { showQuizResult(); }
+  else { renderQuiz(); }
 });
 document.getElementById('quizPrev').addEventListener('click', () => {
   if (quizStep > 0) { quizStep--; renderQuiz(); }
@@ -3124,8 +3153,17 @@ document.getElementById('quizPrev').addEventListener('click', () => {
 document.getElementById('quizClose').addEventListener('click', () => {
   document.getElementById('quiz').classList.remove('open');
 });
-// Quiz trigger in B2B or via a hidden trigger
-// We'll open quiz on click of any element with class "quiz-trigger"
+document.getElementById('quiz').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) document.getElementById('quiz').classList.remove('open');
+});
+document.getElementById('quizRestartBtn').addEventListener('click', () => {
+  resetQuiz();
+});
+document.querySelector('[href="#quiz"]').addEventListener('click', function(e) {
+  e.preventDefault();
+  resetQuiz();
+  document.getElementById('quiz').classList.add('open');
+});
 
 // ===== NEWSLETTER =====
 document.getElementById('newsletterBtn').addEventListener('click', (e) => {
