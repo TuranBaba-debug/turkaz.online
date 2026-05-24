@@ -1197,9 +1197,8 @@ body { transition: background 0.4s ease, color 0.4s ease; }
 /* ===== PART 1: SETTINGS + AI IMAGES ===== */
 
 
-.ai-badge { position: absolute; bottom: 4px; right: 6px; font-size: 8px; color: rgba(255,255,255,0.3); font-weight: 400; letter-spacing: 0.3px; z-index: 2; background: rgba(0,0,0,0.4); padding: 1px 6px; border-radius: 4px; }
-.product-img-container { position: relative; width: 100%; height: 160px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; background: #0a0a0a; margin-bottom: 12px; }
-.product-img-container img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 8px; }
+.product-img-container { position: relative; width: 100%; height: 220px; overflow: hidden; border-radius: 8px; background: #111111; margin-bottom: 12px; }
+.product-img-container img { width: 100%; height: 220px; object-fit: contain; display: block; padding: 12px; position: relative; z-index: 1; }
 .product-img-container .spinner { width: 30px; height: 30px; border: 3px solid rgba(255,193,7,0.08); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 /* ===== PART 2A: PARALLAX ===== */
@@ -1210,14 +1209,7 @@ body { transition: background 0.4s ease, color 0.4s ease; }
 .parallax-active { will-change: transform; }
 /* ===== PART 2B: MAGNETIC HOVER ===== */
 .magnetic-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-.card-glow { position: absolute; width: 150px; height: 150px; background: radial-gradient(circle, rgba(255,193,7,0.12) 0%, transparent 70%); border-radius: 50%; pointer-events: none; transform: translate(-50%,-50%); transition: opacity 0.2s; opacity: 0; z-index: 3; }
-.magnetic-card:hover .card-glow { opacity: 1; }
 .magnetic-card .battery-img-layer { position: relative; z-index: 2; transition: transform 0.2s ease; }
-/* ===== PART 2C: CHARGE ANIMATION ===== */
-@keyframes chargeUp { from { height: 0%; opacity: 0.3; } to { height: 100%; opacity: 1; } }
-@keyframes terminalSpark { 0%, 100% { box-shadow: none; } 50% { box-shadow: 0 0 8px 3px #FF6B00; } }
-.charge-fill { position: absolute; bottom: 3px; left: 3px; right: 3px; border-radius: 3px; opacity: 0.2; height: 0; animation: chargeUp 1.2s ease-out forwards; }
-.charge-spark { animation: terminalSpark 0.6s ease-out 0.5s; }
 /* ===== PART 2D: FLOATING PARTICLES ===== */
 .floating-particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
 .float-particle { position: absolute; bottom: -20px; opacity: 0.08; pointer-events: none; animation: floatUp linear infinite; }
@@ -1305,7 +1297,7 @@ body { transition: background 0.4s ease, color 0.4s ease; }
   .cursor-dot, .cursor-ring { display: none !important; }
   .section-indicators { display: none; }
   .float-particle { display: none; }
-  .product-img-container { height: 120px; }
+  .product-img-container { height: 180px; }
   .nav-links a { padding: 14px 0; font-size: 17px; }
   .filter-btn { padding: 12px 20px; min-height: 44px; }
   .hamburger { min-height: 44px; min-width: 44px; }
@@ -1320,7 +1312,7 @@ body { transition: background 0.4s ease, color 0.4s ease; }
 }
 @media (prefers-reduced-motion: reduce) {
   .page-loader .pl-fill { animation: none; width: 100%; }
-  .parallax-active, .float-particle, .magnetic-card, .brand-fly, .battery-flip, .cursor-dot, .cursor-ring, .charge-fill, .charge-spark, .badge-shimmer::after { animation: none !important; transition-duration: 0.01ms !important; }
+  .parallax-active, .float-particle, .magnetic-card, .brand-fly, .battery-flip, .cursor-dot, .cursor-ring, .badge-shimmer::after { animation: none !important; transition-duration: 0.01ms !important; }
   .page-loader.hide { transition-duration: 0.01ms; }
   .section-title.text-reveal, .section-divider.reveal { transition-duration: 0.01ms !important; }
   .section-title.text-reveal { clip-path: none !important; }
@@ -2920,11 +2912,11 @@ function batteryHTML(product, imgSrc) {
   const bc = product.color || getBrandColor(product.brand);
   const bn = getBrandName(product.brand);
   if (imgSrc) {
-    return `<div class="product-img-container"><img src="${imgSrc}" alt="${product.name} akkumulyator" loading="lazy" style="width:100%;height:200px;object-fit:contain;background:#1a1a2e;padding:20px;"><div class="charge-fill" style="background:${bc};"></div></div>`;
+    return `<div class="product-img-container"><img src="${imgSrc}" alt="${product.name} akkumulyator" loading="lazy" style="width:100%;height:220px;object-fit:contain;padding:12px;position:relative;z-index:1;"></div>`;
   }
   const ah = product.ampere.replace('Ah','');
   const label = getProductLabel(product.name);
-  return `<div class="product-img-container"><svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;flex-shrink:0;"><defs><linearGradient id="gb_${product.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a1a1a"/><stop offset="100%" stop-color="#0a0a0a"/></linearGradient></defs><ellipse cx="110" cy="146" rx="90" ry="6" fill="rgba(0,0,0,0.3)"/><rect x="12" y="28" width="196" height="114" rx="10" fill="url(#gb_${product.id})" stroke="${bc}" stroke-width="1.5"/><rect x="80" y="18" width="60" height="14" rx="5" fill="#1a1a1a" stroke="${bc}" stroke-width="1"/><rect x="15" y="52" width="190" height="84" rx="6" fill="${bc}" opacity="0.1"/><rect x="15" y="52" width="140" height="84" rx="6" fill="${bc}" opacity="0.2"/><rect x="152" y="8" width="18" height="18" rx="5" fill="#CC2200"/><text x="161" y="22" text-anchor="middle" fill="white" font-size="12" font-weight="bold">+</text><rect x="50" y="8" width="18" height="18" rx="5" fill="#444"/><text x="59" y="22" text-anchor="middle" fill="#999" font-size="12" font-weight="bold">−</text><text x="110" y="90" text-anchor="middle" fill="white" font-size="15" font-weight="900" font-family="Arial Black,sans-serif" letter-spacing="0.5">${bn.toUpperCase()}</text><text x="110" y="112" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="10" font-family="Arial,sans-serif">12V · ${ah}Ah</text></svg><div class="charge-fill" style="background:${bc};"></div></div>`;
+  return `<div class="product-img-container"><svg viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:220px;display:block;padding:12px;"><defs><linearGradient id="gb_${product.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a1a1a"/><stop offset="100%" stop-color="#0a0a0a"/></linearGradient></defs><ellipse cx="110" cy="146" rx="90" ry="6" fill="rgba(0,0,0,0.3)"/><rect x="12" y="28" width="196" height="114" rx="10" fill="url(#gb_${product.id})" stroke="${bc}" stroke-width="1.5"/><rect x="80" y="18" width="60" height="14" rx="5" fill="#1a1a1a" stroke="${bc}" stroke-width="1"/><rect x="15" y="52" width="190" height="84" rx="6" fill="${bc}" opacity="0.1"/><rect x="15" y="52" width="140" height="84" rx="6" fill="${bc}" opacity="0.2"/><rect x="152" y="8" width="18" height="18" rx="5" fill="#CC2200"/><text x="161" y="22" text-anchor="middle" fill="white" font-size="12" font-weight="bold">+</text><rect x="50" y="8" width="18" height="18" rx="5" fill="#444"/><text x="59" y="22" text-anchor="middle" fill="#999" font-size="12" font-weight="bold">−</text><text x="110" y="90" text-anchor="middle" fill="white" font-size="15" font-weight="900" font-family="Arial Black,sans-serif" letter-spacing="0.5">${bn.toUpperCase()}</text><text x="110" y="112" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="10" font-family="Arial,sans-serif">12V · ${ah}Ah</text></svg></div>`;
 }
 function getProductLabel(n) {
   const u=n.toUpperCase();
@@ -2958,7 +2950,6 @@ function renderProducts() {
     const waLink = `https://wa.me/994503791806?text=${encodeURIComponent('Salam! Məhsul sifari— tmək istəyirəm: ' + p.name + ' (' + p.ampere + ') - ' + p.price + ' AZN')}`;
     const imgSrc = geminiCache[p.id] || brandImages[p.brand] || null;
     return `<div class="product-card magnetic-card" data-brand="${p.brand}" data-pid="${p.id}" data-aos="fade-up">
-      <div class="card-glow"></div>
       <span class="brand-badge" style="background:${bc};color:#fff;">${bn}</span>
       <span class="warranty-badge">${wText}</span>
       <div class="battery-img-layer">
@@ -2970,8 +2961,7 @@ function renderProducts() {
       <a href="${waLink}" target="_blank" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;">${oText}</a>
     </div>`;
   }).join('');
-  // Observe new cards for charge animation
-  setTimeout(observeCards, 50);
+
   // Load AI images if key exists
   if (key) {
     filtered.forEach(p => {
@@ -2984,9 +2974,7 @@ function renderProducts() {
               if (layer) {
                 const bc = p.color || getBrandColor(p.brand);
                 layer.innerHTML = `<div class="product-img-container">
-                  <img src="${img}" alt="${p.name}" loading="lazy" style="width:100%;height:200px;object-fit:contain;background:#1a1a2e;padding:20px;">
-                  <span class="ai-badge">AI</span>
-                  <div class="charge-fill" style="background:${bc};"></div>
+                  <img src="${img}" alt="${p.name}" loading="lazy" style="width:100%;height:220px;object-fit:contain;padding:12px;position:relative;z-index:1;">
                 </div>`;
               }
             }
@@ -3307,8 +3295,6 @@ document.getElementById('productsGrid').addEventListener('mousemove', (e) => {
   card.style.transform = `perspective(600px) rotateY(${x * 15}deg) rotateX(${y * -15}deg) translateY(-8px)`;
   const imgLayer = card.querySelector('.battery-img-layer');
   if (imgLayer) imgLayer.style.transform = `translateX(${x * -10}px) translateY(${y * -10}px)`;
-  const glow = card.querySelector('.card-glow');
-  if (glow) { glow.style.left = `${e.clientX - rect.left}px`; glow.style.top = `${e.clientY - rect.top}px`; }
 });
 document.getElementById('productsGrid').addEventListener('mouseleave', (e) => {
   if (e.target.closest('.magnetic-card')) {
@@ -3318,26 +3304,7 @@ document.getElementById('productsGrid').addEventListener('mouseleave', (e) => {
   }
 });
 
-// ===== PART 2C: CHARGE ANIMATION =====
-const chargeObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const card = entry.target;
-      const fill = card.querySelector('.charge-fill');
-      if (fill) fill.style.animation = 'chargeUp 1.2s ease-out forwards';
-      const terms = card.querySelectorAll('.battery-3d-terminal');
-      terms.forEach(t => t.classList.add('charge-spark'));
-      chargeObserver.unobserve(card);
-    }
-  });
-}, { threshold: 0.2 });
-function observeCards() {
-  document.querySelectorAll('.product-card:not(.observed)').forEach(c => {
-    c.classList.add('observed');
-    chargeObserver.observe(c);
-  });
-}
-setTimeout(observeCards, 100);
+
 
 // ===== PART 2D: FLOATING PARTICLES =====
 (function initFloatParticles() {
