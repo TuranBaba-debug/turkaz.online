@@ -1,25 +1,32 @@
 {
-  "name": "turkaz",
-  "version": "1.0.0",
-  "description": "",
-  "main": "fix_encoding.js",
+  "name": "@workspace/turkaz-enerji",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite --config vite.config.ts --host 0.0.0.0",
+    "build": "vite build --config vite.config.ts",
+    "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TuranBaba-debug/turkaz.online.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/TuranBaba-debug/turkaz.online/issues"
-  },
-  "homepage": "https://github.com/TuranBaba-debug/turkaz.online#readme",
   "dependencies": {
-    "@21st-sdk/agent": "^0.0.18",
-    "zod": "^4.4.3"
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.4.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0"
   }
 }
