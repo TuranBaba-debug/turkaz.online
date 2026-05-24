@@ -2727,6 +2727,28 @@ const products = [
   { id: pid++, brand: 'yuras', name: 'Yuras 190', ampere: '190Ah', price: 215, color: '#1A73E8', warranty: false },
 ];
 
+// ===== BRAND IMAGES (Unsplash) =====
+const brandImages = {
+  yigit:    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  platin:   'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  helden:   'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  macpower: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  tunc:     'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  turkuaz:  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  gentry:   'https://images.unsplash.com/photo-1609592806596-b0a4e2b0c0c1?w=400&h=280&fit=crop',
+  fierte:   'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  probat:   'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  vesline:  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  rigel:    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  bulbul:   'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  perge:    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  klas:     'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  ant:      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  likya:    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  urban:    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+  yuras:    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=280&fit=crop',
+};
+
 // ===== STATE =====
 let currentLang = 'az';
 let currentFilter = 'all';
@@ -2898,7 +2920,7 @@ function batteryHTML(product, imgSrc) {
   const bc = product.color || getBrandColor(product.brand);
   const bn = getBrandName(product.brand);
   if (imgSrc) {
-    return `<div class="product-img-container"><img src="${imgSrc}" alt="${product.name} akkumulyator" loading="lazy" style="object-fit:contain;width:100%;height:100%;background:#0a0a0a;padding:16px;"><div class="charge-fill" style="background:${bc};"></div></div>`;
+    return `<div class="product-img-container"><img src="${imgSrc}" alt="${product.name} akkumulyator" loading="lazy" style="width:100%;height:200px;object-fit:contain;background:#1a1a2e;padding:20px;"><div class="charge-fill" style="background:${bc};"></div></div>`;
   }
   const ah = product.ampere.replace('Ah','');
   const label = getProductLabel(product.name);
@@ -2934,13 +2956,13 @@ function renderProducts() {
     const wText = p.warranty ? (i18n[currentLang]?.warranty || '1 il zəmanət') : '6 ay zəmanət';
     const oText = i18n[currentLang]?.order_btn || 'Sifariş et';
     const waLink = `https://wa.me/994503791806?text=${encodeURIComponent('Salam! Məhsul sifari— tmək istəyirəm: ' + p.name + ' (' + p.ampere + ') - ' + p.price + ' AZN')}`;
-    const cachedImg = geminiCache[p.id] || null;
+    const imgSrc = geminiCache[p.id] || brandImages[p.brand] || null;
     return `<div class="product-card magnetic-card" data-brand="${p.brand}" data-pid="${p.id}" data-aos="fade-up">
       <div class="card-glow"></div>
       <span class="brand-badge" style="background:${bc};color:#fff;">${bn}</span>
       <span class="warranty-badge">${wText}</span>
       <div class="battery-img-layer">
-        ${batteryHTML(p, cachedImg)}
+        ${batteryHTML(p, imgSrc)}
       </div>
       <div class="product-name">${p.name}</div>
       <div class="product-ampere">${p.ampere}</div>
@@ -2962,7 +2984,7 @@ function renderProducts() {
               if (layer) {
                 const bc = p.color || getBrandColor(p.brand);
                 layer.innerHTML = `<div class="product-img-container">
-                  <img src="${img}" alt="${p.name}" loading="lazy" style="object-fit:contain;width:100%;height:100%;">
+                  <img src="${img}" alt="${p.name}" loading="lazy" style="width:100%;height:200px;object-fit:contain;background:#1a1a2e;padding:20px;">
                   <span class="ai-badge">AI</span>
                   <div class="charge-fill" style="background:${bc};"></div>
                 </div>`;
